@@ -72,19 +72,19 @@ values
 insert into "CREDIT_PURCHASE" (user_id, credit_package_id, purchased_credits, price_paid)
 values
 	(
-		(select id from "USER" where name = '王小明'),
+		(select id from "USER" where email = 'wXlTq@hexschooltest.io'),
 		(select id from "CREDIT_PACKAGE" where name = '14 堂組合包方案'),
 		(select credit_amount from "CREDIT_PACKAGE" where name = '14 堂組合包方案'),
 		(select price from "CREDIT_PACKAGE" where name = '14 堂組合包方案')
 	),
 	(
-		(select id from "USER" where name = '王小明'),
+		(select id from "USER" where email = 'wXlTq@hexschooltest.io'),
 		(select id from "CREDIT_PACKAGE" where name = '21 堂組合包方案'),
 		(select credit_amount from "CREDIT_PACKAGE" where name = '21 堂組合包方案'),
 		(select price from "CREDIT_PACKAGE" where name = '21 堂組合包方案')
 	),
 	(
-		(select id from "USER" where name = '好野人'),
+		(select id from "USER" where email = 'richman@hexschooltest.io'),
 		(select id from "CREDIT_PACKAGE" where name = '14 堂組合包方案'),
 		(select credit_amount from "CREDIT_PACKAGE" where name = '14 堂組合包方案'),
 		(select price from "CREDIT_PACKAGE" where name = '14 堂組合包方案')
@@ -228,7 +228,7 @@ values
     -- 2. 狀態`status` 設定為課程已取消
 
 update "COURSE_BOOKING"
-set cancelled_at = '2024-11-24 17:00:00', status = '已取消'
+set cancelled_at = '2024-11-24 17:00:00', status = '課程已取消'
 where user_id = (select id from "USER" where email = 'wXlTq@hexschooltest.io')
 and course_id = (select id from "COURSE" where user_id = (select id from "USER" where email = 'lee2000@hexschooltest.io'));
 
@@ -367,4 +367,4 @@ where (select extract (month from purchase_at)) = 11;
 select 
 	count(distinct user_id) as 預約會員人數
 from "COURSE_BOOKING" cb 
-where (select extract (month from created_at)) = 11 and status not in ('已取消');
+where (select extract (month from created_at)) = 11 and status != '課程已取消';
